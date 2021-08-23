@@ -1,0 +1,17 @@
+.container {
+    margin: 2% 15%;
+    width: auto !important;
+    height: 500px;
+}
+
+@media(max-width: 1100px) {
+    .prodDetailImg {
+        width: 400px;
+    }
+}
+
+@media (max-width: 1500px) {
+    .container {
+        margin: 2%;
+    }
+}

@@ -1,6 +1,8 @@
-import Header from "./ui/components/common/Header";
-import Carousel from "./ui/components/common/Carousel";
+import Header from "../components/common/Header";
+import Carousel from "../components/common/Carousel";
 import { Grid, Typography } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
+import images from '../data/banner';
 
 function App() {
   const products = [
@@ -8,17 +10,23 @@ function App() {
     { name: "Tablets", url: "" },
     { name: "Cameras", url: "" },
   ];
-  const images = [
-    { url: "Iphone_11.jpg" },
-    { url: "Iphone_12.jpg" },
-    { url: "iphone.jpg" },
-  ];
+  const history = useHistory();
+  const handleCarouselClick = (productId) => {
+    history.push(`${process.env.PUBLIC_URL}/product-detail/${productId}`);
+  };
+
   return (
     <>
       <Header />
       <div style={{ margin: "2% 15%" }}>
-        <div style={{ height: "450px", border: "1px solid #00000029" }}>
-          <Carousel images={images} />
+        <div
+          style={{
+            height: "450px",
+            border: "1px solid #00000029",
+            cursor: "pointer",
+          }}
+        >
+          <Carousel images={images} handleCarouselClick={handleCarouselClick} />
         </div>
         <Grid
           container
