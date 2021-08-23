@@ -40,11 +40,11 @@ function Header() {
             xl={3}
             style={{ display: "flex", alignItems: "center",justifyContent:'flex-end' }}
           >
-            <IconButton style={{ marginLeft: "6px" }}>
+            <Typography variant="h6">David Warner</Typography>
+            <Avatar style={{ marginLeft: "6px" }}>DW</Avatar>
+            <IconButton style={{ marginLeft: "15px" }}>
               <ShoppingCartIcon style={{ color: "white" }} fontSize="large" />
             </IconButton>
-            <Typography variant="h6">David Warner</Typography>
-            <Avatar style={{ marginLeft: "15px" }}>DW</Avatar>
           </Grid>
         </Grid>
       </Toolbar>
