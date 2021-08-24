@@ -2,7 +2,7 @@ import Header from "../components/common/Header";
 import Carousel from "../components/common/Carousel";
 import { Grid, Typography } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
-import images from '../data/banner';
+import { useEffect, useState } from "react";
 
 function App() {
   const products = [
@@ -11,9 +11,29 @@ function App() {
     { name: "Cameras", url: "" },
   ];
   const history = useHistory();
+  const [images, setImages] = useState([]);
+
   const handleCarouselClick = (productId) => {
     history.push(`${process.env.PUBLIC_URL}/product-detail/${productId}`);
   };
+
+  const getCampaignProducts = () => {
+    const endPoint = "http://localhost:3001/product/getCampaignProducts";
+    fetch(endPoint, {
+      method: "get",
+    }).then(async (res) => {
+      let rsp_data = await res.json();
+      if (res.ok) {
+        setImages(rsp_data.data);
+      } else {
+        console.log("No data found");
+      }
+    });
+  };
+
+  useEffect(() => {
+    getCampaignProducts();
+  }, []);
 
   return (
     <>

@@ -85,7 +85,7 @@ function Header() {
               }}
             >
               <Grid container spacing={1} style={{ margin: "1% 0" }}>
-                <Grid item spacing>
+                <Grid item>
                   <Button variant="outlined" color="primary" onClick={handleClose}>
                     Cancel
                   </Button>

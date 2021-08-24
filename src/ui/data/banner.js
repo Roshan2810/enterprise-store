@@ -19,6 +19,8 @@ const images = [
       "Face ID for secure authentication",
       "Wireless charging",
       "iOS 14 with redesigned widgets on the Home screen, all-new App Library, App Clips, and more",
+      "ABC",
+      "XYZ",
     ],
   },
   {

@@ -8,6 +8,7 @@ function CommonCarousel(props) {
       {props.images.map((img, i) => (
         <div key={i} onClick={() => props.handleCarouselClick(i)}>
           <img src={img.url} alt={img.url} />
+          {/* <img src={""} alt={img.url} /> */}
         </div>
       ))}
     </Carousel>
