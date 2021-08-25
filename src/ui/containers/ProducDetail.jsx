@@ -34,6 +34,7 @@ const ProductDetail = (props) => {
       setOpen(true);
       setMsg(rsp_data.message);
       if (res.ok) {
+        getProductDetails();
         setVariant("success");
         localStorage.setItem("cartId", rsp_data.data.cartId);
       } else {
