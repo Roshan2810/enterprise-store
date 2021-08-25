@@ -10,20 +10,37 @@ import {
   Button,
 } from "@material-ui/core";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
+import clearCart from '../../../redux/actions/clearCart';
 
 function Header() {
   const cartCount = useSelector((state) => state.getCartCount);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
-
+  const dispatch = useDispatch();
   const handleCartClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleCheckout = () => {
+    fetch("http://localhost:3001/product/productCheckedOut", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        cartId: localStorage.getItem("cartId"),
+        userId: localStorage.getItem("userId"),
+      }),
+    }).then(async (res) => {
+      // let rsp_data = await res.json();
+      if (res.ok) {
+        dispatch(clearCart())
+      }
+    });
   };
   return (
     <AppBar color="primary" position="static">
@@ -86,12 +103,20 @@ function Header() {
             >
               <Grid container spacing={1} style={{ margin: "1% 0" }}>
                 <Grid item>
-                  <Button variant="outlined" color="primary" onClick={handleClose}>
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    onClick={handleClose}
+                  >
                     Cancel
                   </Button>
                 </Grid>
                 <Grid item>
-                  <Button variant="contained" color="primary">
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleCheckout}
+                  >
                     Proceed to Checkout
                   </Button>
                 </Grid>

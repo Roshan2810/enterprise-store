@@ -13,6 +13,10 @@ const reducer = (state = initialState, action) => {
         count: state.count + 1,
         productIds,
       };
+    case C.CLEAR_CART:
+      return {
+        ...initialState,
+      };
     default:
       return {
         ...state,
