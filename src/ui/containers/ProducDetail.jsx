@@ -33,9 +33,9 @@ const ProductDetail = (props) => {
       let rsp_data = await res.json();
       setOpen(true);
       setMsg(rsp_data.message);
+      getProductDetails();
       if (res.ok) {
         dispatch(addToCart(productId));
-        getProductDetails();
         setVariant("success");
         localStorage.setItem("cartId", rsp_data.data.cartId);
       } else {
