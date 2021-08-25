@@ -32,6 +32,7 @@ function Header() {
   };
 
   const handleCheckout = () => {
+    handleClose();
     fetch("http://localhost:3001/product/productCheckedOut", {
       method: "post",
       headers: { "Content-Type": "application/json" },
@@ -46,7 +47,7 @@ function Header() {
       dispatch(clearCart());
       if (res.ok) {
         setVariant("success");
-      }else{
+      } else {
         setVariant("error");
       }
     });
@@ -132,6 +133,7 @@ function Header() {
                     <Button
                       variant="contained"
                       color="primary"
+                      disabled={cartCount.count ? false : true}
                       onClick={handleCheckout}
                     >
                       Proceed to Checkout
