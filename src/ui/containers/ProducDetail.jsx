@@ -13,6 +13,17 @@ const ProductDetail = (props) => {
   const [src, setSrc] = useState("");
   const dispatch = useDispatch();
   const handleAddToCart = (productId) => {
+    fetch("http://localhost:3001/product/addToCart", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        productId: params.productId,
+        userId: localStorage.getItem("userId"),
+      }),
+    }).then(async (res) => {
+      let rsp_data = await res.json();
+      localStorage.setItem("cartId", rsp_data.data.cartId);
+    });
     dispatch(addToCart(productId));
   };
 
