@@ -34,6 +34,7 @@ const ProductDetail = (props) => {
       setOpen(true);
       setMsg(rsp_data.message);
       if (res.ok) {
+        dispatch(addToCart(productId));
         getProductDetails();
         setVariant("success");
         localStorage.setItem("cartId", rsp_data.data.cartId);
@@ -41,7 +42,6 @@ const ProductDetail = (props) => {
         setVariant("error");
       }
     });
-    dispatch(addToCart(productId));
   };
 
   const getProductDetails = () => {
