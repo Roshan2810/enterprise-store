@@ -7,11 +7,20 @@ import { useDispatch } from "react-redux";
 import addToCart from "../../redux/actions/addToCart";
 import { useState } from "react";
 import { useEffect } from "react";
+import Snackbar from "../components/common/Snackbar";
 
 const ProductDetail = (props) => {
-  const params = useParams();
   const [src, setSrc] = useState("");
+  const [open, setOpen] = useState(false);
+  const [variant, setVariant] = useState("success");
+  const [msg, setMsg] = useState("");
+  const params = useParams();
   const dispatch = useDispatch();
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const handleAddToCart = (productId) => {
     fetch("http://localhost:3001/product/addToCart", {
       method: "post",
@@ -22,7 +31,14 @@ const ProductDetail = (props) => {
       }),
     }).then(async (res) => {
       let rsp_data = await res.json();
-      localStorage.setItem("cartId", rsp_data.data.cartId);
+      setOpen(true);
+      setMsg(rsp_data.message);
+      if (res.ok) {
+        setVariant("success");
+        localStorage.setItem("cartId", rsp_data.data.cartId);
+      } else {
+        setVariant("error");
+      }
     });
     dispatch(addToCart(productId));
   };
@@ -123,6 +139,12 @@ const ProductDetail = (props) => {
           </Grid>
         </Grid>
       )}
+      <Snackbar
+        open={open}
+        variant={variant}
+        msg={msg}
+        handleClose={handleClose}
+      />
     </>
   );
 };
