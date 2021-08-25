@@ -33,6 +33,7 @@ function App() {
 
   useEffect(() => {
     getCampaignProducts();
+    localStorage.setItem("userId", "rosh_shah");
   }, []);
 
   return (

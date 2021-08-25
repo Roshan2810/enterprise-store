@@ -6,7 +6,7 @@ function CommonCarousel(props) {
   return (
     <Carousel showArrows={true}>
       {props.images.map((img, i) => (
-        <div key={i} onClick={() => props.handleCarouselClick(i)}>
+        <div key={i} onClick={() => props.handleCarouselClick(img.productId)}>
           <img src={img.url} alt={img.url} />
           {/* <img src={""} alt={img.url} /> */}
         </div>
