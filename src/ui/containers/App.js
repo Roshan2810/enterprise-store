@@ -3,7 +3,7 @@ import Carousel from "../components/common/Carousel";
 import { Grid, Typography } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import { useEffect, useState } from "react";
-
+import { v4 as uuidv4 } from "uuid";
 function App() {
   const products = [
     { name: "Laptops", url: "" },
@@ -33,8 +33,8 @@ function App() {
 
   useEffect(() => {
     getCampaignProducts();
-    localStorage.setItem("userId", "rosh_shah");
-    localStorage.setItem("cartId", "");
+    sessionStorage.setItem("userId", uuidv4());
+    sessionStorage.setItem("cartId", "");
   }, []);
 
   return (

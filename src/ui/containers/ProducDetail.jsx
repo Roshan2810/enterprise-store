@@ -27,7 +27,8 @@ const ProductDetail = (props) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         productId: params.productId,
-        userId: localStorage.getItem("userId"),
+        userId: sessionStorage.getItem("userId"),
+        exisitingCartId: sessionStorage.getItem("cartId"),
       }),
     }).then(async (res) => {
       let rsp_data = await res.json();
@@ -37,7 +38,7 @@ const ProductDetail = (props) => {
       if (res.ok) {
         dispatch(addToCart(productId));
         setVariant("success");
-        localStorage.setItem("cartId", rsp_data.data.cartId);
+        sessionStorage.setItem("cartId", rsp_data.data.cartId);
       } else {
         setVariant("error");
       }
