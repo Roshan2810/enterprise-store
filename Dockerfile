@@ -25,6 +25,8 @@ FROM nginx:1.19.0
 WORKDIR /usr/share/nginx/html
 # Remove default nginx static resources
 RUN rm -rf ./*
+RUN rm -rf /usr/share/nginx/html/* && rm -rf /etc/nginx/nginx.conf
+COPY ./nginx.conf /etc/nginx/nginx.conf
 # Copies static resources from builder stage
 COPY --from=build-step /app/build .
 # Containers run nginx with global directives and daemon off
