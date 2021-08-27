@@ -98,9 +98,9 @@ const ProductDetail = (props) => {
             </Typography>
             <Typography
               variant="h6"
-              style={{ color: src.quantity ? "green" : "red" }}
+              style={{ color: src.quantity > 0 ? "green" : "red" }}
             >
-              {src.quantity ? "In-stock" : "Out of stock"}
+              {src.quantity > 0 ? "In-stock" : "Out of stock"}
             </Typography>
             <br />
             <Typography variant="body2">Description:</Typography>
@@ -132,7 +132,7 @@ const ProductDetail = (props) => {
             <Button
               variant="contained"
               color="primary"
-              disabled={src.quantity ? false : true}
+              disabled={src.quantity > 0 ? false : true}
               onClick={() => handleAddToCart(params.productId)}
             >
               Add to Cart
