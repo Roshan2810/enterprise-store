@@ -1,11 +1,31 @@
-FROM node:14.16.1 as build-step
-RUN mkdir /app
-WORKDIR /app
-COPY package.json /app
-RUN npm install
-COPY . /app
-RUN npm run build
-FROM nginx:1.17.1-alpine
-EXPOSE 3000
-COPY --from=build-step /app/build /usr/share/nginx/html
+FROM node:14.16.1
 
+# set working directory
+WORKDIR /app
+
+
+# install app dependencies
+#copies package.json and package-lock.json to Docker environment
+COPY package.json ./
+
+# Installs all node packages
+RUN npm install 
+
+
+# Copies everything over to Docker environment
+COPY . ./
+RUN npm run build
+
+#Stage 2
+#######################################
+#pull the official nginx:1.19.0 base image
+FROM nginx:1.19.0
+#copies React to the container directory
+# Set working directory to nginx resources directory
+WORKDIR /usr/share/nginx/html
+# Remove default nginx static resources
+RUN rm -rf ./*
+# Copies static resources from builder stage
+COPY --from=builder /app/build .
+# Containers run nginx with global directives and daemon off
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
