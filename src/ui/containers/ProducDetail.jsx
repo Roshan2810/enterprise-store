@@ -8,7 +8,8 @@ import addToCart from "../../redux/actions/addToCart";
 import { useState } from "react";
 import { useEffect } from "react";
 import Snackbar from "../components/common/Snackbar";
-
+import apiendpoints from "../../config/apiendpoints";
+import HOSTNAME from "../../config/apigw";
 const ProductDetail = (props) => {
   const [src, setSrc] = useState("");
   const [open, setOpen] = useState(false);
@@ -22,7 +23,7 @@ const ProductDetail = (props) => {
   };
 
   const handleAddToCart = (productId) => {
-    fetch("http://localhost:3001/product/addToCart", {
+    fetch(`${HOSTNAME}${apiendpoints.addToCart}`, {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -46,12 +47,9 @@ const ProductDetail = (props) => {
   };
 
   const getProductDetails = () => {
-    fetch(
-      `http://localhost:3001/product/getProductDetails/${params.productId}`,
-      {
-        method: "get",
-      }
-    ).then(async (res) => {
+    fetch(`${HOSTNAME}${apiendpoints.productDetails}/${params.productId}`, {
+      method: "get",
+    }).then(async (res) => {
       let rsp_data = await res.json();
       if (res.ok) {
         let src = rsp_data.data.filter(

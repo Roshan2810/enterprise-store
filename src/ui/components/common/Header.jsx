@@ -14,6 +14,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import clearCart from "../../../redux/actions/clearCart";
 import Snackbar from "../common/Snackbar";
+import apiendpoints from "../../../config/apiendpoints";
+import HOSTNAME from "../../../config/apigw";
 
 function Header() {
   const cartCount = useSelector((state) => state.getCartCount);
@@ -33,12 +35,12 @@ function Header() {
 
   const handleCheckout = () => {
     handleClose();
-    fetch("http://localhost:3001/product/productCheckedOut", {
+    fetch(`${HOSTNAME}${apiendpoints.checkout}`, {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        cartId: localStorage.getItem("cartId"),
-        userId: localStorage.getItem("userId"),
+        cartId: sessionStorage.getItem("cartId"),
+        userId: sessionStorage.getItem("userId"),
       }),
     }).then(async (res) => {
       let rsp_data = await res.json();

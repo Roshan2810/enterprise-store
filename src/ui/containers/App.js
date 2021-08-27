@@ -4,6 +4,9 @@ import { Grid, Typography } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import apiendpoints from "../../config/apiendpoints";
+import HOSTNAME from "../../config/apigw";
+
 function App() {
   const products = [
     { name: "Laptops", url: "" },
@@ -18,8 +21,7 @@ function App() {
   };
 
   const getCampaignProducts = () => {
-    const endPoint = "http://localhost:3001/product/getCampaignProducts";
-    fetch(endPoint, {
+    fetch(`${HOSTNAME}${apiendpoints.campaignProducts}`, {
       method: "get",
     }).then(async (res) => {
       let rsp_data = await res.json();
