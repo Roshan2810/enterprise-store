@@ -1,4 +1,4 @@
-FROM node:14.16.1
+FROM node:14.16.1 as build-step
 
 # set working directory
 WORKDIR /app
@@ -26,6 +26,6 @@ WORKDIR /usr/share/nginx/html
 # Remove default nginx static resources
 RUN rm -rf ./*
 # Copies static resources from builder stage
-COPY --from=builder /app/build .
+COPY --from=build-step /app/build .
 # Containers run nginx with global directives and daemon off
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
