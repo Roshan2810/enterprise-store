@@ -8,6 +8,7 @@ import apiendpoints from "../../config/apiendpoints";
 import HOSTNAME from "../../config/apigw";
 
 function App() {
+  console.log("host name", HOSTNAME);
   const products = [
     { name: "Laptops", url: "" },
     { name: "Tablets", url: "" },
